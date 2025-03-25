@@ -1,0 +1,1496 @@
+Mplus VERSION 8.5 (Mac)
+MUTHEN & MUTHEN
+01/05/2024   1:31 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE: ADHD_Project
+
+  DATA:FILE = "CLDRC.csv";
+
+  VARIABLE:
+  NAMES = pairno	id6	newadhddx_ft	Fran_Ran_V2	Fran_Ran_V1	randtwin	
+  id7	group	study	famnum	indnum	zyg	sex	ibgage	ibgage2	z_insx_ft	
+  z_hypsx_ft	z_adhdsx_ft	z_copy_ft	zpiat_spell_ft	zwrat_spell_ft	
+  zwiat_wcom_ft	comp_towl_ft	zwj_wcom_ft	comp_gds_commissions_ft	
+  comp_stop_ssrt_ft	z_wm_digit_back_ft	z_wm_sent_span_ft	z_wm_count_span_ft	
+  z_wm_cantaberr_ft	zcpstot	ziptot	z_wisc_symsrch_ft	z_wisc_cod_ft	
+  z_trailsa_sqrt_ft;
+
+  GROUPing IS newadhddx_ft (0 = Control, 1= ADHD);
+
+  MISSING=.;
+
+  USEVARIABLES = !newadhddx_ft
+  z_insx_ft z_copy_ft	zpiat_spell_ft	zwrat_spell_ft	
+  zwiat_wcom_ft	comp_towl_ft	zwj_wcom_ft	comp_gds_commissions_ft	
+  comp_stop_ssrt_ft	z_wm_digit_back_ft	z_wm_sent_span_ft	z_wm_count_span_ft	
+  z_wm_cantaberr_ft	zcpstot	ziptot	z_wisc_symsrch_ft	z_wisc_cod_ft	
+  z_trailsa_sqrt_ft;
+
+  ANALYSIS:   model=nocovariances;
+  COVERAGE = .07;
+  !MODEL = CONFIGURAL METRIC SCALAR;
+  difftest = mydiff.dat;
+
+  MODEL:
+  !General Model
+  !Inattention
+
+  z_insx_ft;
+
+  !Transcription General Factor
+
+              TGF by z_copy_ft zpiat_spell_ft zwrat_spell_ft;
+
+  !Writing Composition General Factor
+
+              WCGF by zwiat_wcom_ft comp_towl_ft zwj_wcom_ft;
+
+
+
+  !Processing Speed General Factor
+
+              PSGF by zcpstot ziptot z_wisc_symsrch_ft z_wisc_cod_ft
+              z_trailsa_sqrt_ft;
+
+  !EF Speed General Factor
+              EGF by comp_gds_commissions_ft comp_stop_ssrt_ft
+              z_wm_digit_back_ft z_wm_sent_span_ft z_wm_count_span_ft
+              z_wm_cantaberr_ft;
+  !Factors
+  TGF  ON z_insx_ft (l1);
+  PSGF  ON z_insx_ft (l2);
+  EGF  ON z_insx_ft (l3);
+  WCGF  ON z_insx_ft (l4);
+  WCGF ON PSGF (l5);
+  WCGF  ON TGF(l6);
+  WCGF ON EGF (l7);
+
+  !Correlations
+  PSGF WITH TGF (c1);
+  PSGF WITH EGF(c2);
+  EGF WITH TGF (c3);
+
+
+  OUTPUT:  stdyx tech1 tech8;
+
+
+
+
+*** WARNING in ANALYSIS command
+  DIFFTEST is valid only for estimators MLMV, WLSMV and ULSMV.
+  Request for DIFFTEST will be ignored.
+*** WARNING in VARIABLE command
+  Note that only the first 8 characters of variable names are used in the output.
+  Shorten variable names to avoid any confusion.
+*** WARNING in OUTPUT command
+  TECH8 option is available only with analysis types MIXTURE, RANDOM, or
+  TWOLEVEL with estimators ML, MLF, or MLR or ALGORITHM=INTEGRATION.
+  Request for TECH8 is ignored.
+   3 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+Francesca_ADHD_Project
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 2
+Number of observations
+   Group CONTROL                                               851
+   Group ADHD                                                  518
+   Total sample size                                          1369
+
+Number of dependent variables                                   17
+Number of independent variables                                  1
+Number of continuous latent variables                            4
+
+Observed dependent variables
+
+  Continuous
+   Z_COPY_FT   ZPIAT_SPEL  ZWRAT_SPEL  ZWIAT_WCOM  COMP_TOWL_  ZWJ_WCOM_F
+   COMP_GDS_C  COMP_STOP_  Z_WM_DIGIT  Z_WM_SENT_  Z_WM_COUNT  Z_WM_CANTA
+   ZCPSTOT     ZIPTOT      Z_WISC_SYM  Z_WISC_COD  Z_TRAILSA_
+
+Observed independent variables
+   Z_INSX_F
+
+Continuous latent variables
+   TGF         WCGF        PSGF        EGF
+
+Variables with special functions
+
+  Grouping variable     NEWADHDD
+
+Estimator                                                       ML
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+
+Input data file(s)
+  CLDRC_FT_Writing_8.18.23_2.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+   Group CONTROL
+     Number of missing data patterns            48
+
+   Group ADHD
+     Number of missing data patterns            59
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.070
+
+
+     PROPORTION OF DATA PRESENT FOR CONTROL
+
+
+           Covariance Coverage
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+ Z_COPY_F       0.518
+ ZPIAT_SP       0.506         0.988
+ ZWRAT_SP       0.512         0.982         0.994
+ ZWIAT_WC       0.298         0.302         0.300         0.302
+ COMP_TOW       0.177         0.181         0.179         0.181         0.181
+ ZWJ_WCOM       0.516         0.509         0.515         0.301         0.180
+ COMP_GDS       0.347         0.758         0.765         0.161         0.120
+ COMP_STO       0.324         0.629         0.635         0.145         0.109
+ Z_WM_DIG       0.502         0.969         0.975         0.290         0.172
+ Z_WM_SEN       0.353         0.766         0.772         0.167         0.126
+ Z_WM_COU       0.353         0.766         0.772         0.167         0.126
+ Z_WM_CAN       0.338         0.618         0.622         0.161         0.120
+ ZCPSTOT        0.517         0.986         0.992         0.300         0.179
+ ZIPTOT         0.517         0.986         0.992         0.302         0.181
+ Z_WISC_S       0.337         0.590         0.593         0.167         0.126
+ Z_WISC_C       0.516         0.986         0.992         0.301         0.180
+ Z_TRAILS       0.353         0.766         0.772         0.167         0.126
+ Z_INSX_F       0.518         0.988         0.994         0.302         0.181
+
+
+           Covariance Coverage
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+ ZWJ_WCOM       0.521
+ COMP_GDS       0.348         0.767
+ COMP_STO       0.325         0.630         0.638
+ Z_WM_DIG       0.504         0.759         0.632         0.981
+ Z_WM_SEN       0.354         0.767         0.638         0.767         0.776
+ Z_WM_COU       0.354         0.767         0.638         0.767         0.776
+ Z_WM_CAN       0.340         0.618         0.586         0.617         0.625
+ ZCPSTOT        0.519         0.766         0.637         0.979         0.774
+ ZIPTOT         0.519         0.766         0.638         0.980         0.774
+ Z_WISC_S       0.338         0.591         0.559         0.589         0.597
+ Z_WISC_C       0.518         0.766         0.637         0.981         0.774
+ Z_TRAILS       0.354         0.767         0.638         0.767         0.776
+ Z_INSX_F       0.521         0.767         0.638         0.981         0.776
+
+
+           Covariance Coverage
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+ Z_WM_COU       0.776
+ Z_WM_CAN       0.625         0.625
+ ZCPSTOT        0.774         0.624         0.998
+ ZIPTOT         0.774         0.625         0.995         0.998
+ Z_WISC_S       0.597         0.565         0.596         0.597         0.597
+ Z_WISC_C       0.774         0.624         0.995         0.996         0.596
+ Z_TRAILS       0.776         0.625         0.774         0.774         0.597
+ Z_INSX_F       0.776         0.625         0.998         0.998         0.597
+
+
+           Covariance Coverage
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+ Z_WISC_C       0.998
+ Z_TRAILS       0.774         0.776
+ Z_INSX_F       0.998         0.776         1.000
+
+
+     PROPORTION OF DATA PRESENT FOR ADHD
+
+
+           Covariance Coverage
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+ Z_COPY_F       0.506
+ ZPIAT_SP       0.502         0.992
+ ZWRAT_SP       0.504         0.983         0.990
+ ZWIAT_WC       0.228         0.239         0.237         0.239
+ COMP_TOW       0.122         0.129         0.129         0.127         0.129
+ ZWJ_WCOM       0.500         0.517         0.523         0.232         0.125
+ COMP_GDS       0.402         0.828         0.834         0.160         0.089
+ COMP_STO       0.361         0.691         0.697         0.133         0.075
+ Z_WM_DIG       0.496         0.983         0.979         0.232         0.122
+ Z_WM_SEN       0.405         0.840         0.844         0.164         0.093
+ Z_WM_COU       0.407         0.844         0.847         0.166         0.093
+ Z_WM_CAN       0.390         0.664         0.670         0.164         0.093
+ ZCPSTOT        0.502         0.983         0.979         0.234         0.125
+ ZIPTOT         0.504         0.992         0.988         0.239         0.129
+ Z_WISC_S       0.403         0.649         0.654         0.166         0.093
+ Z_WISC_C       0.502         0.985         0.983         0.239         0.129
+ Z_TRAILS       0.403         0.842         0.846         0.166         0.095
+ Z_INSX_F       0.506         0.992         0.990         0.239         0.129
+
+
+           Covariance Coverage
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+ ZWJ_WCOM       0.525
+ COMP_GDS       0.413         0.834
+ COMP_STO       0.371         0.689         0.697
+ Z_WM_DIG       0.515         0.826         0.693         0.988
+ Z_WM_SEN       0.417         0.832         0.697         0.838         0.846
+ Z_WM_COU       0.419         0.834         0.697         0.842         0.846
+ Z_WM_CAN       0.398         0.662         0.618         0.664         0.668
+ ZCPSTOT        0.517         0.832         0.695         0.979         0.844
+ ZIPTOT         0.523         0.834         0.697         0.988         0.846
+ Z_WISC_S       0.415         0.645         0.602         0.649         0.653
+ Z_WISC_C       0.521         0.832         0.697         0.981         0.844
+ Z_TRAILS       0.415         0.830         0.695         0.840         0.842
+ Z_INSX_F       0.525         0.834         0.697         0.988         0.846
+
+
+           Covariance Coverage
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+ Z_WM_COU       0.849
+ Z_WM_CAN       0.670         0.670
+ ZCPSTOT        0.847         0.668         0.988
+ ZIPTOT         0.849         0.670         0.988         0.998
+ Z_WISC_S       0.654         0.608         0.653         0.654         0.654
+ Z_WISC_C       0.847         0.668         0.981         0.990         0.653
+ Z_TRAILS       0.846         0.670         0.844         0.847         0.651
+ Z_INSX_F       0.849         0.670         0.988         0.998         0.654
+
+
+           Covariance Coverage
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+ Z_WISC_C       0.990
+ Z_TRAILS       0.846         0.847
+ Z_INSX_F       0.990         0.847         1.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS FOR CONTROL
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     Z_COPY_FT             0.250       0.033      -2.523    0.23%      -0.570      0.009      0.231
+             441.000       0.889      -0.163       2.689    0.23%       0.439      0.994
+     ZPIAT_SPELL_FT        0.317       0.034      -2.508    0.12%      -0.468      0.054      0.300
+             841.000       0.905      -0.110       2.840    0.12%       0.558      1.096
+     ZWRAT_SPELL_FT        0.295       0.008      -2.472    0.12%      -0.564      0.043      0.337
+             846.000       0.875      -0.280       3.231    0.12%       0.594      1.098
+     ZWIAT_WCOM_FT         0.145      -0.062      -2.538    0.39%      -0.627     -0.113      0.091
+             257.000       0.907      -0.225       2.868    0.39%       0.397      0.987
+     COMP_TOWL_FT          0.282      -0.296      -1.817    0.65%      -0.420      0.113      0.357
+             154.000       0.737      -0.481       1.845    0.65%       0.483      1.099
+     ZWJ_WCOM_FT           0.193       0.020      -2.545    0.23%      -0.602      0.009      0.226
+             443.000       0.882       0.189       3.157    0.23%       0.427      0.938
+     COMP_GDS_COMMIS       0.153      -0.615      -2.865    0.15%      -0.476      0.007      0.243
+             653.000       0.752       0.425       2.059    0.15%       0.454      0.903
+     COMP_STOP_SSRT_       0.146      -0.788      -4.856    0.18%      -0.523      0.080      0.238
+             543.000       0.902       2.409       3.402    0.18%       0.435      0.850
+     Z_WM_DIGIT_BACK       0.099       0.526      -2.433    0.12%      -0.743     -0.226     -0.010
+             835.000       0.980       0.470       4.284    0.12%       0.257      0.914
+     Z_WM_SENT_SPAN_       0.055       0.396      -2.672    0.15%      -0.782     -0.252     -0.002
+             660.000       0.962       0.181       2.923    0.15%       0.196      0.791
+     Z_WM_COUNT_SPAN       0.086       0.440      -3.163    0.15%      -0.757     -0.230      0.005
+             660.000       0.983       0.286       3.475    0.15%       0.259      0.872
+     Z_WM_CANTABERR_       0.122      -0.195      -3.278    0.19%      -0.686     -0.154      0.142
+             532.000       0.935      -0.186       2.479    0.19%       0.368      1.008
+     ZCPSTOT              -0.198       0.173      -3.883    0.12%      -0.981     -0.497     -0.281
+             849.000       1.156       0.879       4.267    0.12%       0.029      0.618
+     ZIPTOT               -0.097       0.153      -3.268    0.12%      -0.941     -0.386     -0.138
+             849.000       1.032       0.129       3.441    0.12%       0.122      0.751
+     Z_WISC_SYMSRCH_       0.155       0.022      -3.365    0.20%      -0.663     -0.102      0.143
+             508.000       0.957      -0.249       2.292    0.20%       0.343      1.081
+     Z_WISC_COD_FT         0.096       0.025      -2.735    0.12%      -0.701     -0.105      0.065
+             849.000       0.961      -0.027       3.262    0.12%       0.310      0.931
+     Z_TRAILSA_SQRT_       0.170      -0.881      -3.272    0.15%      -0.508      0.081      0.312
+             660.000       0.801       1.143       2.511    0.15%       0.507      0.898
+     Z_INSX_FT            -0.620       1.707      -0.839    0.12%      -0.810     -0.772     -0.749
+             851.000       0.081       1.930       0.307    0.12%      -0.724     -0.450
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS FOR ADHD
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     Z_COPY_FT            -0.421       0.217      -2.768    0.38%      -1.171     -0.678     -0.502
+             262.000       0.851      -0.149       2.001    0.38%      -0.293      0.410
+     ZPIAT_SPELL_FT       -0.224       0.011      -2.840    0.19%      -1.075     -0.469     -0.240
+             514.000       1.036      -0.015       2.704    0.19%      -0.002      0.576
+     ZWRAT_SPELL_FT       -0.300       0.213      -3.156    0.19%      -1.194     -0.578     -0.330
+             513.000       1.001      -0.192       2.718    0.19%      -0.080      0.521
+     ZWIAT_WCOM_FT        -0.548      -0.407      -3.910    0.81%      -1.623     -0.691     -0.427
+             124.000       1.245       0.216       2.070    0.81%      -0.100      0.277
+     COMP_TOWL_FT         -0.546      -0.382      -3.571    1.49%      -1.479     -0.787     -0.424
+              67.000       1.053      -0.030       1.765    1.49%      -0.312      0.400
+     ZWJ_WCOM_FT          -0.464      -0.667      -5.076    0.37%      -1.180     -0.632     -0.416
+             272.000       1.059       3.289       3.875    0.37%      -0.209      0.329
+     COMP_GDS_COMMIS      -0.360      -0.584      -3.930    0.23%      -1.193     -0.483     -0.175
+             432.000       1.004       0.488       2.281    0.23%       0.032      0.440
+     COMP_STOP_SSRT_      -0.317      -1.049      -5.428    0.28%      -1.096     -0.378     -0.091
+             361.000       1.185       2.002       2.145    0.28%       0.069      0.547
+     Z_WM_DIGIT_BACK      -0.341       0.446      -2.727    0.20%      -1.136     -0.604     -0.373
+             512.000       0.783       0.313       2.240    0.20%      -0.170      0.337
+     Z_WM_SENT_SPAN_      -0.186       0.642      -2.630    0.23%      -0.985     -0.477     -0.277
+             438.000       1.018       1.487       4.621    0.23%      -0.036      0.603
+     Z_WM_COUNT_SPAN      -0.252       0.304      -3.438    0.23%      -1.053     -0.565     -0.309
+             440.000       0.956       0.180       2.932    0.23%       0.001      0.494
+     Z_WM_CANTABERR_      -0.196       0.064      -3.018    0.29%      -1.076     -0.480     -0.201
+             347.000       1.028      -0.321       2.460    0.29%       0.063      0.756
+     ZCPSTOT              -0.852      -0.326      -6.915    0.20%      -1.749     -1.118     -0.842
+             512.000       1.250       1.935       2.581    0.20%      -0.546      0.038
+     ZIPTOT               -0.576      -0.624      -6.448    0.19%      -1.450     -0.826     -0.498
+             517.000       1.385       1.715       2.443    0.19%      -0.273      0.303
+     Z_WISC_SYMSRCH_      -0.378       0.056      -3.167    0.29%      -1.219     -0.678     -0.413
+             339.000       0.971       0.003       2.278    0.29%      -0.111      0.454
+     Z_WISC_COD_FT        -0.543       0.265      -2.950    0.19%      -1.336     -0.862     -0.615
+             513.000       0.974      -0.073       2.673    0.19%      -0.361      0.286
+     Z_TRAILSA_SQRT_      -0.256      -1.454      -5.458    0.23%      -0.962     -0.314     -0.086
+             439.000       1.182       3.610       2.027    0.23%       0.129      0.584
+     Z_INSX_FT             1.624      -1.611      -0.836    0.19%       1.226      1.534      1.793
+             518.000       0.320       3.556       2.284    0.19%       1.829      2.144
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       90
+
+Loglikelihood
+
+          H0 Value                      -22322.909
+          H1 Value                      -21794.499
+
+Information Criteria
+
+          Akaike (AIC)                   44825.818
+          Bayesian (BIC)                 45295.783
+          Sample-Size Adjusted BIC       45009.890
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                           1056.821
+          Degrees of Freedom                   288
+          P-Value                           0.0000
+
+Chi-Square Contribution From Each Group
+
+          CONTROL                          540.521
+          ADHD                             516.300
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.062
+          90 Percent C.I.                    0.058  0.067
+          Probability RMSEA <= .05           0.000
+
+CFI/TLI
+
+          CFI                                0.862
+          TLI                                0.853
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                           5860.708
+          Degrees of Freedom                   306
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.079
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Group CONTROL
+
+ TGF      BY
+    Z_COPY_FT          1.000      0.000    999.000    999.000
+    ZPIAT_SPEL         1.671      0.118     14.150      0.000
+    ZWRAT_SPEL         1.799      0.128     14.002      0.000
+
+ WCGF     BY
+    ZWIAT_WCOM         1.000      0.000    999.000    999.000
+    COMP_TOWL_         1.255      0.115     10.944      0.000
+    ZWJ_WCOM_F         1.114      0.092     12.137      0.000
+
+ PSGF     BY
+    ZCPSTOT            1.000      0.000    999.000    999.000
+    ZIPTOT             0.912      0.041     22.420      0.000
+    Z_WISC_SYM         0.836      0.043     19.283      0.000
+    Z_WISC_COD         0.809      0.038     21.438      0.000
+    Z_TRAILSA_         0.587      0.038     15.376      0.000
+
+ EGF      BY
+    COMP_GDS_C         1.000      0.000    999.000    999.000
+    COMP_STOP_         1.223      0.127      9.620      0.000
+    Z_WM_DIGIT         1.522      0.139     10.969      0.000
+    Z_WM_SENT_         1.464      0.140     10.429      0.000
+    Z_WM_COUNT         1.702      0.156     10.910      0.000
+    Z_WM_CANTA         1.077      0.122      8.803      0.000
+
+ WCGF     ON
+    PSGF               0.150      0.055      2.714      0.007
+    TGF                0.679      0.101      6.743      0.000
+    EGF                0.217      0.144      1.502      0.133
+
+ TGF      ON
+    Z_INSX_FT         -0.162      0.036     -4.470      0.000
+
+ PSGF     ON
+    Z_INSX_FT         -0.526      0.060     -8.780      0.000
+
+ EGF      ON
+    Z_INSX_FT         -0.179      0.033     -5.371      0.000
+
+ WCGF     ON
+    Z_INSX_FT         -0.223      0.067     -3.322      0.001
+
+ PSGF     WITH
+    TGF                0.213      0.022      9.608      0.000
+    EGF                0.180      0.019      9.332      0.000
+
+ EGF      WITH
+    TGF                0.110      0.013      8.338      0.000
+
+ Means
+    Z_INSX_FT         -0.620      0.010    -63.393      0.000
+
+ Intercepts
+    Z_COPY_FT         -0.027      0.044     -0.628      0.530
+    ZPIAT_SPEL         0.159      0.047      3.385      0.001
+    ZWRAT_SPEL         0.120      0.050      2.415      0.016
+    ZWIAT_WCOM        -0.204      0.067     -3.063      0.002
+    COMP_TOWL_        -0.184      0.076     -2.407      0.016
+    ZWJ_WCOM_F        -0.138      0.061     -2.247      0.025
+    COMP_GDS_C        -0.046      0.035     -1.290      0.197
+    COMP_STOP_        -0.047      0.042     -1.139      0.255
+    Z_WM_DIGIT        -0.081      0.041     -1.970      0.049
+    Z_WM_SENT_        -0.065      0.042     -1.548      0.122
+    Z_WM_COUNT        -0.074      0.046     -1.627      0.104
+    Z_WM_CANTA        -0.026      0.040     -0.661      0.509
+    ZCPSTOT           -0.529      0.050    -10.625      0.000
+    ZIPTOT            -0.355      0.046     -7.650      0.000
+    Z_WISC_SYM        -0.175      0.046     -3.780      0.000
+    Z_WISC_COD        -0.215      0.042     -5.094      0.000
+    Z_TRAILSA_        -0.051      0.037     -1.373      0.170
+    TGF                0.000      0.000    999.000    999.000
+    WCGF               0.000      0.000    999.000    999.000
+    PSGF               0.000      0.000    999.000    999.000
+    EGF                0.000      0.000    999.000    999.000
+
+ Variances
+    Z_INSX_FT          0.081      0.004     20.628      0.000
+
+ Residual Variances
+    Z_COPY_FT          0.738      0.053     13.918      0.000
+    ZPIAT_SPEL         0.289      0.021     13.813      0.000
+    ZWRAT_SPEL         0.159      0.020      7.897      0.000
+    ZWIAT_WCOM         0.686      0.067     10.198      0.000
+    COMP_TOWL_         0.329      0.055      5.964      0.000
+    ZWJ_WCOM_F         0.502      0.047     10.740      0.000
+    COMP_GDS_C         0.656      0.039     16.886      0.000
+    COMP_STOP_         0.722      0.048     15.110      0.000
+    Z_WM_DIGIT         0.638      0.039     16.538      0.000
+    Z_WM_SENT_         0.639      0.041     15.463      0.000
+    Z_WM_COUNT         0.541      0.040     13.617      0.000
+    Z_WM_CANTA         0.806      0.052     15.452      0.000
+    ZCPSTOT            0.568      0.038     14.812      0.000
+    ZIPTOT             0.553      0.035     15.629      0.000
+    Z_WISC_SYM         0.536      0.041     13.031      0.000
+    Z_WISC_COD         0.602      0.035     17.188      0.000
+    Z_TRAILSA_         0.646      0.038     16.996      0.000
+    TGF                0.220      0.032      6.938      0.000
+    WCGF               0.073      0.026      2.861      0.004
+    PSGF               0.561      0.043     12.913      0.000
+    EGF                0.137      0.022      6.168      0.000
+
+Group ADHD
+
+ TGF      BY
+    Z_COPY_FT          1.000      0.000    999.000    999.000
+    ZPIAT_SPEL         1.671      0.118     14.150      0.000
+    ZWRAT_SPEL         1.799      0.128     14.002      0.000
+
+ WCGF     BY
+    ZWIAT_WCOM         1.000      0.000    999.000    999.000
+    COMP_TOWL_         1.255      0.115     10.944      0.000
+    ZWJ_WCOM_F         1.114      0.092     12.137      0.000
+
+ PSGF     BY
+    ZCPSTOT            1.000      0.000    999.000    999.000
+    ZIPTOT             0.912      0.041     22.420      0.000
+    Z_WISC_SYM         0.836      0.043     19.283      0.000
+    Z_WISC_COD         0.809      0.038     21.438      0.000
+    Z_TRAILSA_         0.587      0.038     15.376      0.000
+
+ EGF      BY
+    COMP_GDS_C         1.000      0.000    999.000    999.000
+    COMP_STOP_         1.223      0.127      9.620      0.000
+    Z_WM_DIGIT         1.522      0.139     10.969      0.000
+    Z_WM_SENT_         1.464      0.140     10.429      0.000
+    Z_WM_COUNT         1.702      0.156     10.910      0.000
+    Z_WM_CANTA         1.077      0.122      8.803      0.000
+
+ WCGF     ON
+    PSGF               0.150      0.055      2.714      0.007
+    TGF                0.679      0.101      6.743      0.000
+    EGF                0.217      0.144      1.502      0.133
+
+ TGF      ON
+    Z_INSX_FT         -0.162      0.036     -4.470      0.000
+
+ PSGF     ON
+    Z_INSX_FT         -0.526      0.060     -8.780      0.000
+
+ EGF      ON
+    Z_INSX_FT         -0.179      0.033     -5.371      0.000
+
+ WCGF     ON
+    Z_INSX_FT         -0.223      0.067     -3.322      0.001
+
+ PSGF     WITH
+    TGF                0.213      0.022      9.608      0.000
+    EGF                0.180      0.019      9.332      0.000
+
+ EGF      WITH
+    TGF                0.110      0.013      8.338      0.000
+
+ Means
+    Z_INSX_FT          1.624      0.025     65.365      0.000
+
+ Intercepts
+    Z_COPY_FT         -0.027      0.044     -0.628      0.530
+    ZPIAT_SPEL         0.159      0.047      3.385      0.001
+    ZWRAT_SPEL         0.120      0.050      2.415      0.016
+    ZWIAT_WCOM        -0.204      0.067     -3.063      0.002
+    COMP_TOWL_        -0.184      0.076     -2.407      0.016
+    ZWJ_WCOM_F        -0.138      0.061     -2.247      0.025
+    COMP_GDS_C        -0.046      0.035     -1.290      0.197
+    COMP_STOP_        -0.047      0.042     -1.139      0.255
+    Z_WM_DIGIT        -0.081      0.041     -1.970      0.049
+    Z_WM_SENT_        -0.065      0.042     -1.548      0.122
+    Z_WM_COUNT        -0.074      0.046     -1.627      0.104
+    Z_WM_CANTA        -0.026      0.040     -0.661      0.509
+    ZCPSTOT           -0.529      0.050    -10.625      0.000
+    ZIPTOT            -0.355      0.046     -7.650      0.000
+    Z_WISC_SYM        -0.175      0.046     -3.780      0.000
+    Z_WISC_COD        -0.215      0.042     -5.094      0.000
+    Z_TRAILSA_        -0.051      0.037     -1.373      0.170
+    TGF                0.025      0.082      0.309      0.757
+    WCGF               0.242      0.150      1.619      0.105
+    PSGF               0.524      0.141      3.712      0.000
+    EGF                0.132      0.072      1.839      0.066
+
+ Variances
+    Z_INSX_FT          0.320      0.020     16.093      0.000
+
+ Residual Variances
+    Z_COPY_FT          0.702      0.066     10.587      0.000
+    ZPIAT_SPEL         0.279      0.026     10.571      0.000
+    ZWRAT_SPEL         0.130      0.025      5.124      0.000
+    ZWIAT_WCOM         0.622      0.098      6.344      0.000
+    COMP_TOWL_         0.329      0.092      3.561      0.000
+    ZWJ_WCOM_F         0.465      0.070      6.660      0.000
+    COMP_GDS_C         0.915      0.066     13.819      0.000
+    COMP_STOP_         1.014      0.080     12.620      0.000
+    Z_WM_DIGIT         0.514      0.039     13.130      0.000
+    Z_WM_SENT_         0.712      0.054     13.063      0.000
+    Z_WM_COUNT         0.575      0.049     11.813      0.000
+    Z_WM_CANTA         0.836      0.067     12.400      0.000
+    ZCPSTOT            0.527      0.047     11.180      0.000
+    ZIPTOT             0.664      0.052     12.754      0.000
+    Z_WISC_SYM         0.484      0.047     10.406      0.000
+    Z_WISC_COD         0.541      0.041     13.031      0.000
+    Z_TRAILSA_         0.858      0.062     13.852      0.000
+    TGF                0.252      0.037      6.829      0.000
+    WCGF               0.197      0.054      3.685      0.000
+    PSGF               0.657      0.054     12.096      0.000
+    EGF                0.124      0.022      5.731      0.000
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Group CONTROL
+
+ TGF      BY
+    Z_COPY_FT          0.481      0.030     15.805      0.000
+    ZPIAT_SPEL         0.826      0.013     61.279      0.000
+    ZWRAT_SPEL         0.905      0.013     71.177      0.000
+
+ WCGF     BY
+    ZWIAT_WCOM         0.550      0.039     14.273      0.000
+    COMP_TOWL_         0.766      0.042     18.389      0.000
+    ZWJ_WCOM_F         0.651      0.035     18.659      0.000
+
+ PSGF     BY
+    ZCPSTOT            0.712      0.020     35.736      0.000
+    ZIPTOT             0.684      0.021     32.511      0.000
+    Z_WISC_SYM         0.657      0.026     25.719      0.000
+    Z_WISC_COD         0.623      0.021     29.225      0.000
+    Z_TRAILSA_         0.487      0.026     18.762      0.000
+
+ EGF      BY
+    COMP_GDS_C         0.418      0.031     13.648      0.000
+    COMP_STOP_         0.473      0.032     14.558      0.000
+    Z_WM_DIGIT         0.579      0.026     22.490      0.000
+    Z_WM_SENT_         0.564      0.028     19.906      0.000
+    Z_WM_COUNT         0.654      0.027     24.050      0.000
+    Z_WM_CANTA         0.409      0.032     12.570      0.000
+
+ WCGF     ON
+    PSGF               0.210      0.076      2.782      0.005
+    TGF                0.587      0.069      8.544      0.000
+    EGF                0.148      0.098      1.516      0.130
+
+ TGF      ON
+    Z_INSX_FT         -0.098      0.021     -4.707      0.000
+
+ PSGF     ON
+    Z_INSX_FT         -0.197      0.022     -8.843      0.000
+
+ EGF      ON
+    Z_INSX_FT         -0.137      0.023     -5.896      0.000
+
+ WCGF     ON
+    Z_INSX_FT         -0.117      0.035     -3.335      0.001
+
+ PSGF     WITH
+    TGF                0.605      0.029     20.649      0.000
+    EGF                0.650      0.034     18.959      0.000
+
+ EGF      WITH
+    TGF                0.635      0.030     21.368      0.000
+
+ Means
+    Z_INSX_FT         -2.173      0.063    -34.578      0.000
+
+ Intercepts
+    Z_COPY_FT         -0.028      0.044     -0.630      0.529
+    ZPIAT_SPEL         0.167      0.050      3.366      0.001
+    ZWRAT_SPEL         0.128      0.053      2.407      0.016
+    ZWIAT_WCOM        -0.205      0.067     -3.071      0.002
+    COMP_TOWL_        -0.206      0.084     -2.443      0.015
+    ZWJ_WCOM_F        -0.148      0.066     -2.253      0.024
+    COMP_GDS_C        -0.051      0.039     -1.295      0.195
+    COMP_STOP_        -0.049      0.043     -1.142      0.253
+    Z_WM_DIGIT        -0.083      0.042     -1.972      0.049
+    Z_WM_SENT_        -0.067      0.044     -1.546      0.122
+    Z_WM_COUNT        -0.076      0.047     -1.627      0.104
+    Z_WM_CANTA        -0.027      0.040     -0.661      0.508
+    ZCPSTOT           -0.493      0.047    -10.544      0.000
+    ZIPTOT            -0.348      0.046     -7.641      0.000
+    Z_WISC_SYM        -0.180      0.047     -3.799      0.000
+    Z_WISC_COD        -0.217      0.042     -5.120      0.000
+    Z_TRAILSA_        -0.055      0.040     -1.377      0.169
+    TGF                0.000      0.000    999.000    999.000
+    WCGF               0.000      0.000    999.000    999.000
+    PSGF               0.000      0.000    999.000    999.000
+    EGF                0.000      0.000    999.000    999.000
+
+ Variances
+    Z_INSX_FT          1.000      0.000    999.000    999.000
+
+ Residual Variances
+    Z_COPY_FT          0.769      0.029     26.245      0.000
+    ZPIAT_SPEL         0.318      0.022     14.279      0.000
+    ZWRAT_SPEL         0.181      0.023      7.849      0.000
+    ZWIAT_WCOM         0.697      0.042     16.450      0.000
+    COMP_TOWL_         0.413      0.064      6.461      0.000
+    ZWJ_WCOM_F         0.576      0.045     12.681      0.000
+    COMP_GDS_C         0.825      0.026     32.172      0.000
+    COMP_STOP_         0.776      0.031     25.255      0.000
+    Z_WM_DIGIT         0.664      0.030     22.241      0.000
+    Z_WM_SENT_         0.682      0.032     21.317      0.000
+    Z_WM_COUNT         0.573      0.036     16.125      0.000
+    Z_WM_CANTA         0.833      0.027     31.377      0.000
+    ZCPSTOT            0.493      0.028     17.407      0.000
+    ZIPTOT             0.533      0.029     18.538      0.000
+    Z_WISC_SYM         0.568      0.034     16.893      0.000
+    Z_WISC_COD         0.612      0.027     23.053      0.000
+    Z_TRAILSA_         0.763      0.025     30.183      0.000
+    TGF                0.990      0.004    242.561      0.000
+    WCGF               0.245      0.066      3.720      0.000
+    PSGF               0.961      0.009    110.054      0.000
+    EGF                0.981      0.006    154.740      0.000
+
+Group ADHD
+
+ TGF      BY
+    Z_COPY_FT          0.520      0.034     15.266      0.000
+    ZPIAT_SPEL         0.850      0.014     58.808      0.000
+    ZWRAT_SPEL         0.931      0.014     66.551      0.000
+
+ WCGF     BY
+    ZWIAT_WCOM         0.663      0.049     13.561      0.000
+    COMP_TOWL_         0.836      0.044     19.004      0.000
+    ZWJ_WCOM_F         0.752      0.040     18.904      0.000
+
+ PSGF     BY
+    ZCPSTOT            0.765      0.021     37.187      0.000
+    ZIPTOT             0.695      0.024     29.563      0.000
+    Z_WISC_SYM         0.720      0.026     27.677      0.000
+    Z_WISC_COD         0.689      0.023     29.852      0.000
+    Z_TRAILSA_         0.480      0.029     16.463      0.000
+
+ EGF      BY
+    COMP_GDS_C         0.357      0.031     11.552      0.000
+    COMP_STOP_         0.406      0.033     12.446      0.000
+    Z_WM_DIGIT         0.614      0.027     22.336      0.000
+    Z_WM_SENT_         0.536      0.030     18.023      0.000
+    Z_WM_COUNT         0.635      0.029     21.803      0.000
+    Z_WM_CANTA         0.396      0.035     11.179      0.000
+
+ WCGF     ON
+    PSGF               0.186      0.067      2.777      0.005
+    TGF                0.496      0.062      7.950      0.000
+    EGF                0.114      0.076      1.498      0.134
+
+ TGF      ON
+    Z_INSX_FT         -0.180      0.037     -4.800      0.000
+
+ PSGF     ON
+    Z_INSX_FT         -0.345      0.037     -9.361      0.000
+
+ EGF      ON
+    Z_INSX_FT         -0.276      0.044     -6.248      0.000
+
+ WCGF     ON
+    Z_INSX_FT         -0.181      0.051     -3.559      0.000
+
+ PSGF     WITH
+    TGF                0.523      0.032     16.451      0.000
+    EGF                0.631      0.037     17.027      0.000
+
+ EGF      WITH
+    TGF                0.623      0.033     18.615      0.000
+
+ Means
+    Z_INSX_FT          2.872      0.099     28.876      0.000
+
+ Intercepts
+    Z_COPY_FT         -0.028      0.045     -0.626      0.532
+    ZPIAT_SPEL         0.159      0.048      3.333      0.001
+    ZWRAT_SPEL         0.121      0.051      2.381      0.017
+    ZWIAT_WCOM        -0.194      0.062     -3.115      0.002
+    COMP_TOWL_        -0.176      0.071     -2.490      0.013
+    ZWJ_WCOM_F        -0.133      0.058     -2.294      0.022
+    COMP_GDS_C        -0.045      0.035     -1.285      0.199
+    COMP_STOP_        -0.043      0.038     -1.138      0.255
+    Z_WM_DIGIT        -0.089      0.045     -1.979      0.048
+    Z_WM_SENT_        -0.065      0.042     -1.557      0.119
+    Z_WM_COUNT        -0.076      0.046     -1.640      0.101
+    Z_WM_CANTA        -0.026      0.040     -0.661      0.509
+    ZCPSTOT           -0.469      0.043    -10.848      0.000
+    ZIPTOT            -0.313      0.040     -7.830      0.000
+    Z_WISC_SYM        -0.174      0.045     -3.840      0.000
+    Z_WISC_COD        -0.212      0.041     -5.146      0.000
+    Z_TRAILSA_        -0.048      0.035     -1.377      0.169
+    TGF                0.050      0.160      0.310      0.757
+    WCGF               0.347      0.207      1.676      0.094
+    PSGF               0.607      0.157      3.867      0.000
+    EGF                0.362      0.190      1.900      0.057
+
+ Variances
+    Z_INSX_FT          1.000      0.000    999.000    999.000
+
+ Residual Variances
+    Z_COPY_FT          0.729      0.035     20.575      0.000
+    ZPIAT_SPEL         0.278      0.025     11.303      0.000
+    ZWRAT_SPEL         0.134      0.026      5.141      0.000
+    ZWIAT_WCOM         0.561      0.065      8.659      0.000
+    COMP_TOWL_         0.301      0.074      4.085      0.000
+    ZWJ_WCOM_F         0.435      0.060      7.278      0.000
+    COMP_GDS_C         0.872      0.022     39.474      0.000
+    COMP_STOP_         0.835      0.027     31.493      0.000
+    Z_WM_DIGIT         0.623      0.034     18.493      0.000
+    Z_WM_SENT_         0.712      0.032     22.330      0.000
+    Z_WM_COUNT         0.597      0.037     16.156      0.000
+    Z_WM_CANTA         0.843      0.028     30.104      0.000
+    ZCPSTOT            0.414      0.032     13.139      0.000
+    ZIPTOT             0.517      0.033     15.830      0.000
+    Z_WISC_SYM         0.482      0.037     12.866      0.000
+    Z_WISC_COD         0.526      0.032     16.559      0.000
+    Z_TRAILSA_         0.770      0.028     27.504      0.000
+    TGF                0.968      0.013     72.035      0.000
+    WCGF               0.406      0.065      6.250      0.000
+    PSGF               0.881      0.025     34.731      0.000
+    EGF                0.924      0.024     37.790      0.000
+
+
+R-SQUARE
+
+Group CONTROL
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    Z_COPY_F           0.231      0.029      7.903      0.000
+    ZPIAT_SP           0.682      0.022     30.639      0.000
+    ZWRAT_SP           0.819      0.023     35.589      0.000
+    ZWIAT_WC           0.303      0.042      7.136      0.000
+    COMP_TOW           0.587      0.064      9.195      0.000
+    ZWJ_WCOM           0.424      0.045      9.330      0.000
+    COMP_GDS           0.175      0.026      6.824      0.000
+    COMP_STO           0.224      0.031      7.279      0.000
+    Z_WM_DIG           0.336      0.030     11.245      0.000
+    Z_WM_SEN           0.318      0.032      9.953      0.000
+    Z_WM_COU           0.427      0.036     12.025      0.000
+    Z_WM_CAN           0.167      0.027      6.285      0.000
+    ZCPSTOT            0.507      0.028     17.868      0.000
+    ZIPTOT             0.467      0.029     16.256      0.000
+    Z_WISC_S           0.432      0.034     12.860      0.000
+    Z_WISC_C           0.388      0.027     14.612      0.000
+    Z_TRAILS           0.237      0.025      9.381      0.000
+
+     Latent                                         Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    TGF                0.010      0.004      2.354      0.019
+    WCGF               0.755      0.066     11.440      0.000
+    PSGF               0.039      0.009      4.421      0.000
+    EGF                0.019      0.006      2.948      0.003
+
+Group ADHD
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    Z_COPY_F           0.271      0.035      7.633      0.000
+    ZPIAT_SP           0.722      0.025     29.404      0.000
+    ZWRAT_SP           0.866      0.026     33.275      0.000
+    ZWIAT_WC           0.439      0.065      6.781      0.000
+    COMP_TOW           0.699      0.074      9.502      0.000
+    ZWJ_WCOM           0.565      0.060      9.452      0.000
+    COMP_GDS           0.128      0.022      5.776      0.000
+    COMP_STO           0.165      0.027      6.223      0.000
+    Z_WM_DIG           0.377      0.034     11.168      0.000
+    Z_WM_SEN           0.288      0.032      9.011      0.000
+    Z_WM_COU           0.403      0.037     10.902      0.000
+    Z_WM_CAN           0.157      0.028      5.589      0.000
+    ZCPSTOT            0.586      0.032     18.593      0.000
+    ZIPTOT             0.483      0.033     14.782      0.000
+    Z_WISC_S           0.518      0.037     13.838      0.000
+    Z_WISC_C           0.474      0.032     14.926      0.000
+    Z_TRAILS           0.230      0.028      8.231      0.000
+
+     Latent                                         Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    TGF                0.032      0.013      2.400      0.016
+    WCGF               0.594      0.065      9.157      0.000
+    PSGF               0.119      0.025      4.680      0.000
+    EGF                0.076      0.024      3.124      0.002
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.220E-03
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION FOR CONTROL
+
+
+           NU
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+                  1             2             3             4             5
+
+
+           NU
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+                  6             7             8             9            10
+
+
+           NU
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+                 11            12            13            14            15
+
+
+           NU
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+                 16            17             0
+
+
+           LAMBDA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ Z_COPY_F           0             0             0             0             0
+ ZPIAT_SP          18             0             0             0             0
+ ZWRAT_SP          19             0             0             0             0
+ ZWIAT_WC           0             0             0             0             0
+ COMP_TOW           0            20             0             0             0
+ ZWJ_WCOM           0            21             0             0             0
+ COMP_GDS           0             0             0             0             0
+ COMP_STO           0             0             0            22             0
+ Z_WM_DIG           0             0             0            23             0
+ Z_WM_SEN           0             0             0            24             0
+ Z_WM_COU           0             0             0            25             0
+ Z_WM_CAN           0             0             0            26             0
+ ZCPSTOT            0             0             0             0             0
+ ZIPTOT             0             0            27             0             0
+ Z_WISC_S           0             0            28             0             0
+ Z_WISC_C           0             0            29             0             0
+ Z_TRAILS           0             0            30             0             0
+ Z_INSX_F           0             0             0             0             0
+
+
+           THETA
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+ Z_COPY_F          31
+ ZPIAT_SP           0            32
+ ZWRAT_SP           0             0            33
+ ZWIAT_WC           0             0             0            34
+ COMP_TOW           0             0             0             0            35
+ ZWJ_WCOM           0             0             0             0             0
+ COMP_GDS           0             0             0             0             0
+ COMP_STO           0             0             0             0             0
+ Z_WM_DIG           0             0             0             0             0
+ Z_WM_SEN           0             0             0             0             0
+ Z_WM_COU           0             0             0             0             0
+ Z_WM_CAN           0             0             0             0             0
+ ZCPSTOT            0             0             0             0             0
+ ZIPTOT             0             0             0             0             0
+ Z_WISC_S           0             0             0             0             0
+ Z_WISC_C           0             0             0             0             0
+ Z_TRAILS           0             0             0             0             0
+ Z_INSX_F           0             0             0             0             0
+
+
+           THETA
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+ ZWJ_WCOM          36
+ COMP_GDS           0            37
+ COMP_STO           0             0            38
+ Z_WM_DIG           0             0             0            39
+ Z_WM_SEN           0             0             0             0            40
+ Z_WM_COU           0             0             0             0             0
+ Z_WM_CAN           0             0             0             0             0
+ ZCPSTOT            0             0             0             0             0
+ ZIPTOT             0             0             0             0             0
+ Z_WISC_S           0             0             0             0             0
+ Z_WISC_C           0             0             0             0             0
+ Z_TRAILS           0             0             0             0             0
+ Z_INSX_F           0             0             0             0             0
+
+
+           THETA
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+ Z_WM_COU          41
+ Z_WM_CAN           0            42
+ ZCPSTOT            0             0            43
+ ZIPTOT             0             0             0            44
+ Z_WISC_S           0             0             0             0            45
+ Z_WISC_C           0             0             0             0             0
+ Z_TRAILS           0             0             0             0             0
+ Z_INSX_F           0             0             0             0             0
+
+
+           THETA
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+ Z_WISC_C          46
+ Z_TRAILS           0            47
+ Z_INSX_F           0             0             0
+
+
+           ALPHA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+                  0             0             0             0            48
+
+
+           BETA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ TGF                0             0             0             0            49
+ WCGF              50             0            51            52            53
+ PSGF               0             0             0             0            54
+ EGF                0             0             0             0            55
+ Z_INSX_F           0             0             0             0             0
+
+
+           PSI
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ TGF               56
+ WCGF               0            57
+ PSGF              58             0            59
+ EGF               60             0            61            62
+ Z_INSX_F           0             0             0             0            63
+
+
+     PARAMETER SPECIFICATION FOR ADHD
+
+
+           NU
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+                  1             2             3             4             5
+
+
+           NU
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+                  6             7             8             9            10
+
+
+           NU
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+                 11            12            13            14            15
+
+
+           NU
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+                 16            17             0
+
+
+           LAMBDA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ Z_COPY_F           0             0             0             0             0
+ ZPIAT_SP          18             0             0             0             0
+ ZWRAT_SP          19             0             0             0             0
+ ZWIAT_WC           0             0             0             0             0
+ COMP_TOW           0            20             0             0             0
+ ZWJ_WCOM           0            21             0             0             0
+ COMP_GDS           0             0             0             0             0
+ COMP_STO           0             0             0            22             0
+ Z_WM_DIG           0             0             0            23             0
+ Z_WM_SEN           0             0             0            24             0
+ Z_WM_COU           0             0             0            25             0
+ Z_WM_CAN           0             0             0            26             0
+ ZCPSTOT            0             0             0             0             0
+ ZIPTOT             0             0            27             0             0
+ Z_WISC_S           0             0            28             0             0
+ Z_WISC_C           0             0            29             0             0
+ Z_TRAILS           0             0            30             0             0
+ Z_INSX_F           0             0             0             0             0
+
+
+           THETA
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+ Z_COPY_F          64
+ ZPIAT_SP           0            65
+ ZWRAT_SP           0             0            66
+ ZWIAT_WC           0             0             0            67
+ COMP_TOW           0             0             0             0            68
+ ZWJ_WCOM           0             0             0             0             0
+ COMP_GDS           0             0             0             0             0
+ COMP_STO           0             0             0             0             0
+ Z_WM_DIG           0             0             0             0             0
+ Z_WM_SEN           0             0             0             0             0
+ Z_WM_COU           0             0             0             0             0
+ Z_WM_CAN           0             0             0             0             0
+ ZCPSTOT            0             0             0             0             0
+ ZIPTOT             0             0             0             0             0
+ Z_WISC_S           0             0             0             0             0
+ Z_WISC_C           0             0             0             0             0
+ Z_TRAILS           0             0             0             0             0
+ Z_INSX_F           0             0             0             0             0
+
+
+           THETA
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+ ZWJ_WCOM          69
+ COMP_GDS           0            70
+ COMP_STO           0             0            71
+ Z_WM_DIG           0             0             0            72
+ Z_WM_SEN           0             0             0             0            73
+ Z_WM_COU           0             0             0             0             0
+ Z_WM_CAN           0             0             0             0             0
+ ZCPSTOT            0             0             0             0             0
+ ZIPTOT             0             0             0             0             0
+ Z_WISC_S           0             0             0             0             0
+ Z_WISC_C           0             0             0             0             0
+ Z_TRAILS           0             0             0             0             0
+ Z_INSX_F           0             0             0             0             0
+
+
+           THETA
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+ Z_WM_COU          74
+ Z_WM_CAN           0            75
+ ZCPSTOT            0             0            76
+ ZIPTOT             0             0             0            77
+ Z_WISC_S           0             0             0             0            78
+ Z_WISC_C           0             0             0             0             0
+ Z_TRAILS           0             0             0             0             0
+ Z_INSX_F           0             0             0             0             0
+
+
+           THETA
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+ Z_WISC_C          79
+ Z_TRAILS           0            80
+ Z_INSX_F           0             0             0
+
+
+           ALPHA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+                 81            82            83            84            85
+
+
+           BETA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ TGF                0             0             0             0            49
+ WCGF              50             0            51            52            53
+ PSGF               0             0             0             0            54
+ EGF                0             0             0             0            55
+ Z_INSX_F           0             0             0             0             0
+
+
+           PSI
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ TGF               86
+ WCGF               0            87
+ PSGF              58             0            88
+ EGF               60             0            61            89
+ Z_INSX_F           0             0             0             0            90
+
+
+     STARTING VALUES FOR CONTROL
+
+
+           NU
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+                0.250         0.317         0.295         0.145         0.282
+
+
+           NU
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+                0.193         0.153         0.146         0.099         0.055
+
+
+           NU
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+                0.086         0.122        -0.198        -0.097         0.155
+
+
+           NU
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+                0.096         0.170         0.000
+
+
+           LAMBDA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ Z_COPY_F       1.000         0.000         0.000         0.000         0.000
+ ZPIAT_SP       2.166         0.000         0.000         0.000         0.000
+ ZWRAT_SP       2.190         0.000         0.000         0.000         0.000
+ ZWIAT_WC       0.000         1.000         0.000         0.000         0.000
+ COMP_TOW       0.000         1.379         0.000         0.000         0.000
+ ZWJ_WCOM       0.000         1.339         0.000         0.000         0.000
+ COMP_GDS       0.000         0.000         0.000         1.000         0.000
+ COMP_STO       0.000         0.000         0.000         1.371         0.000
+ Z_WM_DIG       0.000         0.000         0.000         1.210         0.000
+ Z_WM_SEN       0.000         0.000         0.000         1.243         0.000
+ Z_WM_COU       0.000         0.000         0.000         1.709         0.000
+ Z_WM_CAN       0.000         0.000         0.000         0.824         0.000
+ ZCPSTOT        0.000         0.000         1.000         0.000         0.000
+ ZIPTOT         0.000         0.000         1.223         0.000         0.000
+ Z_WISC_S       0.000         0.000         1.124         0.000         0.000
+ Z_WISC_C       0.000         0.000         0.963         0.000         0.000
+ Z_TRAILS       0.000         0.000         0.605         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         1.000
+
+
+           THETA
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+ Z_COPY_F       0.445
+ ZPIAT_SP       0.000         0.452
+ ZWRAT_SP       0.000         0.000         0.437
+ ZWIAT_WC       0.000         0.000         0.000         0.453
+ COMP_TOW       0.000         0.000         0.000         0.000         0.369
+ ZWJ_WCOM       0.000         0.000         0.000         0.000         0.000
+ COMP_GDS       0.000         0.000         0.000         0.000         0.000
+ COMP_STO       0.000         0.000         0.000         0.000         0.000
+ Z_WM_DIG       0.000         0.000         0.000         0.000         0.000
+ Z_WM_SEN       0.000         0.000         0.000         0.000         0.000
+ Z_WM_COU       0.000         0.000         0.000         0.000         0.000
+ Z_WM_CAN       0.000         0.000         0.000         0.000         0.000
+ ZCPSTOT        0.000         0.000         0.000         0.000         0.000
+ ZIPTOT         0.000         0.000         0.000         0.000         0.000
+ Z_WISC_S       0.000         0.000         0.000         0.000         0.000
+ Z_WISC_C       0.000         0.000         0.000         0.000         0.000
+ Z_TRAILS       0.000         0.000         0.000         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+ ZWJ_WCOM       0.441
+ COMP_GDS       0.000         0.376
+ COMP_STO       0.000         0.000         0.451
+ Z_WM_DIG       0.000         0.000         0.000         0.490
+ Z_WM_SEN       0.000         0.000         0.000         0.000         0.481
+ Z_WM_COU       0.000         0.000         0.000         0.000         0.000
+ Z_WM_CAN       0.000         0.000         0.000         0.000         0.000
+ ZCPSTOT        0.000         0.000         0.000         0.000         0.000
+ ZIPTOT         0.000         0.000         0.000         0.000         0.000
+ Z_WISC_S       0.000         0.000         0.000         0.000         0.000
+ Z_WISC_C       0.000         0.000         0.000         0.000         0.000
+ Z_TRAILS       0.000         0.000         0.000         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+ Z_WM_COU       0.492
+ Z_WM_CAN       0.000         0.468
+ ZCPSTOT        0.000         0.000         0.578
+ ZIPTOT         0.000         0.000         0.000         0.516
+ Z_WISC_S       0.000         0.000         0.000         0.000         0.479
+ Z_WISC_C       0.000         0.000         0.000         0.000         0.000
+ Z_TRAILS       0.000         0.000         0.000         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+ Z_WISC_C       0.481
+ Z_TRAILS       0.000         0.401
+ Z_INSX_F       0.000         0.000         0.000
+
+
+           ALPHA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000        -0.620
+
+
+           BETA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ TGF            0.000         0.000         0.000         0.000         0.000
+ WCGF           0.000         0.000         0.000         0.000         0.000
+ PSGF           0.000         0.000         0.000         0.000         0.000
+ EGF            0.000         0.000         0.000         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ TGF            0.050
+ WCGF           0.000         0.050
+ PSGF           0.000         0.000         0.050
+ EGF            0.000         0.000         0.000         0.050
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.041
+
+
+     STARTING VALUES FOR ADHD
+
+
+           NU
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+                0.250         0.317         0.295         0.145         0.282
+
+
+           NU
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+                0.193         0.153         0.146         0.099         0.055
+
+
+           NU
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+                0.086         0.122        -0.198        -0.097         0.155
+
+
+           NU
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+                0.096         0.170         0.000
+
+
+           LAMBDA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ Z_COPY_F       1.000         0.000         0.000         0.000         0.000
+ ZPIAT_SP       2.010         0.000         0.000         0.000         0.000
+ ZWRAT_SP       2.335         0.000         0.000         0.000         0.000
+ ZWIAT_WC       0.000         1.000         0.000         0.000         0.000
+ COMP_TOW       0.000         1.065         0.000         0.000         0.000
+ ZWJ_WCOM       0.000         0.867         0.000         0.000         0.000
+ COMP_GDS       0.000         0.000         0.000         1.000         0.000
+ COMP_STO       0.000         0.000         0.000         1.079         0.000
+ Z_WM_DIG       0.000         0.000         0.000         0.769         0.000
+ Z_WM_SEN       0.000         0.000         0.000         0.961         0.000
+ Z_WM_COU       0.000         0.000         0.000         1.167         0.000
+ Z_WM_CAN       0.000         0.000         0.000         0.941         0.000
+ ZCPSTOT        0.000         0.000         1.000         0.000         0.000
+ ZIPTOT         0.000         0.000         1.211         0.000         0.000
+ Z_WISC_S       0.000         0.000         0.971         0.000         0.000
+ Z_WISC_C       0.000         0.000         0.867         0.000         0.000
+ Z_TRAILS       0.000         0.000         0.755         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         1.000
+
+
+           THETA
+              Z_COPY_F      ZPIAT_SP      ZWRAT_SP      ZWIAT_WC      COMP_TOW
+              ________      ________      ________      ________      ________
+ Z_COPY_F       0.445
+ ZPIAT_SP       0.000         0.452
+ ZWRAT_SP       0.000         0.000         0.437
+ ZWIAT_WC       0.000         0.000         0.000         0.453
+ COMP_TOW       0.000         0.000         0.000         0.000         0.369
+ ZWJ_WCOM       0.000         0.000         0.000         0.000         0.000
+ COMP_GDS       0.000         0.000         0.000         0.000         0.000
+ COMP_STO       0.000         0.000         0.000         0.000         0.000
+ Z_WM_DIG       0.000         0.000         0.000         0.000         0.000
+ Z_WM_SEN       0.000         0.000         0.000         0.000         0.000
+ Z_WM_COU       0.000         0.000         0.000         0.000         0.000
+ Z_WM_CAN       0.000         0.000         0.000         0.000         0.000
+ ZCPSTOT        0.000         0.000         0.000         0.000         0.000
+ ZIPTOT         0.000         0.000         0.000         0.000         0.000
+ Z_WISC_S       0.000         0.000         0.000         0.000         0.000
+ Z_WISC_C       0.000         0.000         0.000         0.000         0.000
+ Z_TRAILS       0.000         0.000         0.000         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              ZWJ_WCOM      COMP_GDS      COMP_STO      Z_WM_DIG      Z_WM_SEN
+              ________      ________      ________      ________      ________
+ ZWJ_WCOM       0.441
+ COMP_GDS       0.000         0.376
+ COMP_STO       0.000         0.000         0.451
+ Z_WM_DIG       0.000         0.000         0.000         0.490
+ Z_WM_SEN       0.000         0.000         0.000         0.000         0.481
+ Z_WM_COU       0.000         0.000         0.000         0.000         0.000
+ Z_WM_CAN       0.000         0.000         0.000         0.000         0.000
+ ZCPSTOT        0.000         0.000         0.000         0.000         0.000
+ ZIPTOT         0.000         0.000         0.000         0.000         0.000
+ Z_WISC_S       0.000         0.000         0.000         0.000         0.000
+ Z_WISC_C       0.000         0.000         0.000         0.000         0.000
+ Z_TRAILS       0.000         0.000         0.000         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              Z_WM_COU      Z_WM_CAN      ZCPSTOT       ZIPTOT        Z_WISC_S
+              ________      ________      ________      ________      ________
+ Z_WM_COU       0.492
+ Z_WM_CAN       0.000         0.468
+ ZCPSTOT        0.000         0.000         0.578
+ ZIPTOT         0.000         0.000         0.000         0.516
+ Z_WISC_S       0.000         0.000         0.000         0.000         0.479
+ Z_WISC_C       0.000         0.000         0.000         0.000         0.000
+ Z_TRAILS       0.000         0.000         0.000         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              Z_WISC_C      Z_TRAILS      Z_INSX_F
+              ________      ________      ________
+ Z_WISC_C       0.481
+ Z_TRAILS       0.000         0.401
+ Z_INSX_F       0.000         0.000         0.000
+
+
+           ALPHA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000        -0.620
+
+
+           BETA
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ TGF            0.000         0.000         0.000         0.000         0.000
+ WCGF           0.000         0.000         0.000         0.000         0.000
+ PSGF           0.000         0.000         0.000         0.000         0.000
+ EGF            0.000         0.000         0.000         0.000         0.000
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              TGF           WCGF          PSGF          EGF           Z_INSX_F
+              ________      ________      ________      ________      ________
+ TGF            0.050
+ WCGF           0.000         0.050
+ PSGF           0.000         0.000         0.050
+ EGF            0.000         0.000         0.000         0.050
+ Z_INSX_F       0.000         0.000         0.000         0.000         0.041
+
+
+     Beginning Time:  13:31:37
+        Ending Time:  13:31:37
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2020 Muthen & Muthen
